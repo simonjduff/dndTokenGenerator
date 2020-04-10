@@ -5,5 +5,6 @@ This will generate a square token, of a solid colour, with the supplied text cen
 
 ## Usage
 
-TokenGenerator.exe [-c <colour>] <text>
--c <colour>: where colour is a RGB hex code
+`TokenGenerator.exe [-c <colour>] <text>`
+
+`-c <colour>: where colour is a RGB hex code`
