@@ -10,8 +10,8 @@ namespace TokenGenerator
 {
     class Program
     {
-        private const int Width = 150;
-        private const int Height = 150;
+        private const int Width = 100;
+        private const int Height = 100;
 
         static int Main(string[] args)
         {
@@ -20,15 +20,18 @@ namespace TokenGenerator
             Console.WriteLine($"Detected colour {parameters.Colour}");
 
             Image image = new Image<Argb32>(Configuration.Default, Width, Height);
-            Font font = SystemFonts.CreateFont("arial", 48);
             var colour = parameters.Colour;
+
+            int fontSize = 48;
+            Font font = SystemFonts.CreateFont("arial", fontSize);
             var rendererOptions = new RendererOptions(font);
             var textSize = TextMeasurer.Measure(parameters.TokenText, rendererOptions);
 
-            if (textSize.Width > Width || textSize.Height > Height)
+            while(textSize.Width > Width || textSize.Height > Height)
             {
-                Console.WriteLine("Text is too big");
-                return -1;
+                font = SystemFonts.CreateFont("arial", --fontSize);
+                rendererOptions = new RendererOptions(font);
+                textSize = TextMeasurer.Measure(parameters.TokenText, rendererOptions);
             }
 
             Console.WriteLine($"Text size {textSize}");
