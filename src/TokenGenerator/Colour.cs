@@ -21,7 +21,7 @@ namespace TokenGenerator
             Blue = HexToInt(match.Groups["blue"].Value);
         }
 
-        private static int HexToInt(string hex)
+        private static byte HexToInt(string hex)
         {
             if (hex.Length != 2)
             {
@@ -30,14 +30,14 @@ namespace TokenGenerator
 
             hex = hex.ToUpper();
 
-            return Hex.IndexOf(hex[0]) * Exponent + Hex.IndexOf(hex[1]);
+            return Convert.ToByte(Hex.IndexOf(hex[0]) * Exponent + Hex.IndexOf(hex[1]));
         }
 
         public class InvalidColourException : Exception { }
 
-        public int Blue { get; }
-        public int Green { get; }
-        public int Red { get; }
+        public byte Blue { get; }
+        public byte Green { get; }
+        public byte Red { get; }
 
         public override bool Equals(object obj)
         {
@@ -61,7 +61,7 @@ namespace TokenGenerator
         {
             unchecked
             {
-                var hashCode = Blue;
+                var hashCode = (int)Blue;
                 hashCode = (hashCode * 397) ^ Green;
                 hashCode = (hashCode * 397) ^ Red;
                 return hashCode;
