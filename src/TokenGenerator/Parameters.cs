@@ -9,7 +9,8 @@ namespace TokenGenerator
         private enum States
         {
             TokenText,
-            BackgroundColour
+            BackgroundColour,
+            Relationship
         }
 
         public Parameters(params string[] args)
@@ -19,16 +20,35 @@ namespace TokenGenerator
 
             foreach (string arg in args)
             {
-                if (arg == "-c")
+                switch (arg)
                 {
-                    state = States.BackgroundColour;
-                    continue;
+                    case "-c":
+                        state = States.BackgroundColour;
+                        continue;
+                    case "-r":
+                        state = States.Relationship;
+                        continue;
                 }
 
                 switch (state)
                 {
                     case States.BackgroundColour:
                         Colour = new Colour(arg);
+                        state = States.TokenText;
+                        continue;
+                    case States.Relationship:
+                        switch (arg)
+                        {
+                            case "friendly":
+                                Colour = new Colour("#00ff00");
+                                break;
+                            case "enemy":
+                                Colour = new Colour("#ff0000");
+                                break;
+                            case "neutral":
+                                Colour = new Colour("#aaaaaa");
+                                break;
+                        }
                         state = States.TokenText;
                         continue;
                     case States.TokenText:

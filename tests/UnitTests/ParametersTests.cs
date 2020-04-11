@@ -34,5 +34,16 @@ namespace UnitTests
             Parameters p = new Parameters(input);
             Assert.Equal(expected, p.TokenText);
         }
+
+        [Theory]
+        [InlineData("this is the text", "#00ff00", "-r", "friendly", "this is the text")]
+        [InlineData("this is the text", "#aaaaaa", "-r", "neutral", "this is the text")]
+        [InlineData("this is the text", "#ff0000", "-r", "enemy", "this is the text")]
+        public void Parameters_parse_friendly_colour(string expectedText, string expectedColour, params string[] input)
+        {
+            Parameters p = new Parameters(input);
+            Assert.Equal(expectedText, p.TokenText);
+            Assert.Equal(new Colour(expectedColour), p.Colour);
+        }
     }
 }
