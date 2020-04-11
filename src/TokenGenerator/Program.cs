@@ -46,7 +46,8 @@ namespace TokenGenerator
                     new PointF(Width / 2 - textSize.Width / 2,
                         Height / 2 - textSize.Height / 2));
             });
-            var writer = File.OpenWrite("token.png");
+            // TODO: Move filename generation to own class with tests. Handle special characters and escaping
+            var writer = File.OpenWrite($"{parameters.TokenText}.png");
             textImage.SaveAsPng(writer);
 
             return 0;

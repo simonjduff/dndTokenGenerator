@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TokenGenerator
 {
@@ -18,6 +16,7 @@ namespace TokenGenerator
             States state = States.TokenText;
             List<string> tokenText = new List<string>();
 
+            // TODO: Improve statefulness. What if someone uses -c and -r? You cannot set colour twice.
             foreach (string arg in args)
             {
                 switch (arg)
@@ -37,6 +36,7 @@ namespace TokenGenerator
                         state = States.TokenText;
                         continue;
                     case States.Relationship:
+                        // TODO: Single responsibility. Split out colour strategies
                         switch (arg)
                         {
                             case "friendly":
